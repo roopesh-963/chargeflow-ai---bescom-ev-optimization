@@ -1,0 +1,6 @@
+{
+  "name": "ChargeFlow AI - BESCOM EV Optimization",
+  "description": "Premium AI-driven EV charging optimization and infrastructure planning platform for BESCOM.",
+  "requestFramePermissions": ["geolocation"],
+  "majorCapabilities": ["AI Analytics", "Interactive Mapping", "Real-time Monitoring"]
+}

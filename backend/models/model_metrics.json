@@ -1,0 +1,31 @@
+{
+  "model_type": "GradientBoostingRegressor",
+  "train_rmse": 131.7957,
+  "test_rmse": 134.4089,
+  "train_r2": 0.9891,
+  "test_r2": 0.9889,
+  "mae": 95.3865,
+  "feature_importances": {
+    "ev_users": 0.3022,
+    "hour": 0.2955,
+    "hour_squared": 0.2942,
+    "grid_capacity": 0.0485,
+    "chargers": 0.0237
+  },
+  "training_samples": 103680,
+  "trained_at": "2026-05-06T10:53:22.105240+00:00",
+  "feature_columns": [
+    "hour",
+    "hour_squared",
+    "day_of_week",
+    "is_monday",
+    "is_weekend",
+    "month",
+    "temp_c",
+    "zone_population",
+    "zone_ev_users",
+    "zone_chargers",
+    "zone_grid_capacity",
+    "ev_density"
+  ]
+}

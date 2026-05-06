@@ -1,0 +1,63 @@
+<svg viewBox="0 0 400 120" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ChargeFlow AI BESCOM logo" style="">
+  <title style="fill:rgb(0, 0, 0);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto">ChargeFlow AI — BESCOM logo</title>
+  <desc style="fill:rgb(0, 0, 0);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto">Teal and indigo logo with lightning bolt icon, ChargeFlow AI text and BESCOM tagline</desc>
+
+  <defs>
+    <linearGradient id="boltGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00d4aa"/>
+      <stop offset="100%" stop-color="#6366f1"/>
+    </linearGradient>
+    <linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00d4aa" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#6366f1" stop-opacity="0.15"/>
+    </linearGradient>
+    <linearGradient id="textGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#00d4aa"/>
+      <stop offset="60%" stop-color="#6366f1"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="2.5" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  <mask id="imagine-text-gaps-zykqtx" maskUnits="userSpaceOnUse"><rect x="0" y="0" width="400" height="120" fill="white"/><rect x="114" y="22" width="148.18106079101562" height="38.400001525878906" fill="black" rx="2"/><rect x="312.5874938964844" y="30" width="22.02500057220459" height="18.40000057220459" fill="black" rx="2"/><rect x="114" y="62" width="69.51250076293945" height="18.40000057220459" fill="black" rx="2"/><rect x="181" y="62" width="154.9375" height="18.40000057220459" fill="black" rx="2"/><rect x="114" y="81.5999984741211" width="178.4253387451172" height="16.800000190734863" fill="black" rx="2"/></mask></defs>
+
+  <!-- Outer ring -->
+  <circle cx="58" cy="60" r="48" fill="url(#ringGrad)" stroke="url(#boltGrad)" stroke-width="1.2" style="color:rgb(255, 255, 255);stroke-width:1.2px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+
+  <!-- Inner circle -->
+  <circle cx="58" cy="60" r="36" fill="#0d0d1a" style="fill:rgb(13, 13, 26);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+
+  <!-- Circuit dots on ring -->
+  <circle cx="58" cy="12" r="3" fill="#00d4aa" opacity="0.8" style="fill:rgb(0, 212, 170);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:0.8;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <circle cx="100" cy="40" r="2.5" fill="#6366f1" opacity="0.8" style="fill:rgb(99, 102, 241);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:0.8;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <circle cx="100" cy="80" r="2.5" fill="#6366f1" opacity="0.6" style="fill:rgb(99, 102, 241);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:0.6;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <circle cx="58" cy="108" r="3" fill="#00d4aa" opacity="0.6" style="fill:rgb(0, 212, 170);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:0.6;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <circle cx="16" cy="80" r="2.5" fill="#00d4aa" opacity="0.6" style="fill:rgb(0, 212, 170);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:0.6;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <circle cx="16" cy="40" r="2.5" fill="#6366f1" opacity="0.8" style="fill:rgb(99, 102, 241);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:0.8;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+
+  <!-- Lightning bolt -->
+  <polygon points="65,30 48,62 60,62 51,90 74,54 61,54" fill="url(#boltGrad)" filter="url(#glow)" style="stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+
+  <!-- Small EV plug dots -->
+  <circle cx="38" cy="72" r="2" fill="#00d4aa" opacity="0.7" style="fill:rgb(0, 212, 170);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:0.7;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <circle cx="78" cy="48" r="2" fill="#6366f1" opacity="0.7" style="fill:rgb(99, 102, 241);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:0.7;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+
+  <!-- Main title: ChargeFlow -->
+  <text x="118" y="52" font-family="system-ui, -apple-system, sans-serif" font-size="26" font-weight="700" letter-spacing="-0.5" fill="url(#textGrad)" style="stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:system-ui, -apple-system, sans-serif;font-size:26px;font-weight:700;text-anchor:start;dominant-baseline:auto">ChargeFlow</text>
+
+  <!-- AI badge -->
+  <rect x="308" y="30" width="32" height="20" rx="5" fill="none" stroke="url(#boltGrad)" stroke-width="1.2" style="fill:none;color:rgb(255, 255, 255);stroke-width:1.2px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <text x="324" y="44" font-family="system-ui, sans-serif" font-size="11" font-weight="700" fill="#00d4aa" text-anchor="middle" letter-spacing="1" style="fill:rgb(0, 212, 170);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:system-ui, sans-serif;font-size:11px;font-weight:700;text-anchor:middle;dominant-baseline:auto">AI</text>
+
+  <!-- Divider line -->
+  <line x1="118" y1="60" x2="342" y2="60" stroke="#00d4aa" stroke-width="0.5" opacity="0.25" mask="url(#imagine-text-gaps-zykqtx)" style="fill:rgb(0, 0, 0);stroke:rgb(0, 212, 170);color:rgb(255, 255, 255);stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;opacity:0.25;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+
+  <!-- Subtitle: BESCOM EV Grid Optimization -->
+  <text x="118" y="76" font-family="system-ui, sans-serif" font-size="11" font-weight="500" letter-spacing="3" fill="#6366f1" opacity="0.9" style="fill:rgb(99, 102, 241);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:0.9;font-family:system-ui, sans-serif;font-size:11px;font-weight:500;text-anchor:start;dominant-baseline:auto">BESCOM</text>
+
+  <text x="185" y="76" font-family="system-ui, sans-serif" font-size="11" font-weight="400" letter-spacing="1.5" fill="#00d4aa" opacity="0.7" style="fill:rgb(0, 212, 170);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:0.7;font-family:system-ui, sans-serif;font-size:11px;font-weight:400;text-anchor:start;dominant-baseline:auto">EV GRID OPTIMIZATION</text>
+
+  <!-- Bottom tagline -->
+  <text x="118" y="94" font-family="system-ui, sans-serif" font-size="9.5" font-weight="400" letter-spacing="0.5" fill="#888" opacity="0.8" style="fill:rgb(136, 136, 136);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:0.8;font-family:system-ui, sans-serif;font-size:9.5px;font-weight:400;text-anchor:start;dominant-baseline:auto">Intelligent · Explainable · Grid-Aware</text>
+
+</svg>
