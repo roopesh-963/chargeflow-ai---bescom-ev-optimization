@@ -21,7 +21,7 @@ def build_health_payload() -> dict:
         "version": "ChargeFlow AI v2.0",
         "model_loaded": MODEL_PATH.exists(),
         "zones_count": min(7, len(load_zones())),
-        "optimizer": "scipy LP (HiGHS)",
+        "optimizer": "priority-based load shifter",
         "ai_models": [
             "GradientBoostingRegressor",
             "IsolationForest",

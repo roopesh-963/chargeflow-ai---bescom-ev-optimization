@@ -6,5 +6,8 @@ coverage/
 *.log
 .env*
 !.env.example
+!.env.production
+!.env.development
 __pycache__/
 *.py[cod]
+.vercel/

@@ -239,47 +239,8 @@ export interface CopilotResult {
   };
 }
 
-function resolveApiBase() {
-  const configured = (import.meta.env.VITE_API_BASE_URL ?? '').replace(/\/$/, '');
-  if (configured) return configured;
-  if (typeof window === 'undefined') return 'http://127.0.0.1:8000';
-
-  const { hostname, protocol } = window.location;
-  const isLocalHost =
-    hostname === 'localhost' ||
-    hostname === '127.0.0.1' ||
-    hostname === '0.0.0.0';
-
-  // In local dev, talk directly to FastAPI instead of relying on the Vite proxy.
-  if (isLocalHost) {
-    return 'http://127.0.0.1:8000';
-  }
-
-  return '';
-}
-
-const BASE_URL = resolveApiBase();
-
-function resolveWsBase() {
-  const configured = (import.meta.env.VITE_WS_BASE_URL ?? '').replace(/\/$/, '');
-  if (configured) return configured;
-  if (typeof window === 'undefined') return 'ws://127.0.0.1:8000';
-
-  const { hostname, protocol } = window.location;
-  const isLocalHost =
-    hostname === 'localhost' ||
-    hostname === '127.0.0.1' ||
-    hostname === '0.0.0.0';
-
-  if (isLocalHost) {
-    return 'ws://127.0.0.1:8000';
-  }
-
-  const wsProtocol = protocol === 'https:' ? 'wss:' : 'ws:';
-  return `${wsProtocol}//${window.location.host}`;
-}
-
-const WS_BASE = resolveWsBase();
+const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:8000";
+const WS_URL = import.meta.env.VITE_WS_URL || "ws://localhost:8000";
 const CACHE_TTL = 30000;
 const cache = new Map<string, { data: any; timestamp: number }>();
 
@@ -313,7 +274,7 @@ async function apiRequest(path: string, init?: RequestInit, options?: { skipAuth
     });
   } catch (error) {
     if (error instanceof Error && error.message === 'Failed to fetch') {
-      throw new Error('Cannot connect to server. Make sure the FastAPI backend is running on http://127.0.0.1:8000.');
+      throw new Error('Cannot connect to server. Make sure the FastAPI backend is running.');
     }
     throw error;
   }
@@ -337,7 +298,7 @@ async function apiRequest(path: string, init?: RequestInit, options?: { skipAuth
 
     if (response.status === 404 && path === '/api/schedule/apply') {
       throw new Error(
-        'Smart Scheduling apply is unavailable because the backend needs a restart. Restart FastAPI on port 8000 and try again.',
+        'Smart Scheduling apply is unavailable because the backend needs a restart. Restart FastAPI and try again.',
       );
     }
 
@@ -561,7 +522,8 @@ export async function askCopilot(query: string, session_id?: string) {
 }
 
 export function getWebSocketUrl() {
-  return `${WS_BASE.replace(/\/$/, '')}/ws/live`;
+  if (!WS_URL) return null;
+  return `${WS_URL.replace(/\/$/, '')}/ws/live`;
 }
 
 export async function loginRequest(username: string, password: string) {
@@ -582,7 +544,7 @@ export async function loginRequest(username: string, password: string) {
     return (await response.json()) as LoginResponse;
   } catch (error) {
     if (error instanceof Error && error.message === 'Failed to fetch') {
-      throw new Error('Cannot connect to server. Make sure backend is running on port 8000.');
+      throw new Error('Cannot connect to server. Make sure the backend is running.');
     }
     throw error;
   }

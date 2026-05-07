@@ -4,15 +4,19 @@ from __future__ import annotations
 
 from typing import Any
 
-import numpy as np
-from scipy.optimize import linprog
-
 from services.data_store import load_zones
 from utils.zone_utils import filter_zones
 
 OFF_PEAK_HOURS = list(range(22, 24)) + list(range(0, 7))
 RESERVED_PEAK_HOURS = {8, 9}
 _applied_zones: set[str] = set()
+PRIORITY_BUCKETS = [
+    list(range(22, 24)) + list(range(0, 7)),
+    [10, 11, 12, 13, 14, 15, 16, 17],
+    [7],
+    [21],
+    [18, 19, 20],
+]
 
 
 def _build_unmanaged_schedule(ev_daily_demand: float, hours: int) -> list[float]:
@@ -39,6 +43,54 @@ def _peak_slot(schedule: list[float]) -> str:
     return _slot_label(peak_hour)
 
 
+def _build_optimized_schedule(ev_daily_demand: float, hourly_limit: float, hours: int) -> tuple[list[float], str]:
+    optimized = [0.0] * hours
+    remaining = ev_daily_demand
+
+    for bucket in PRIORITY_BUCKETS:
+        eligible_hours = [
+            hour for hour in bucket if hour < hours and hour not in RESERVED_PEAK_HOURS
+        ]
+        if not eligible_hours or remaining <= 0:
+            continue
+
+        bucket_capacity = hourly_limit * len(eligible_hours)
+        allocation = min(remaining, bucket_capacity)
+        per_hour = allocation / len(eligible_hours)
+
+        for hour in eligible_hours:
+            optimized[hour] += per_hour
+
+        remaining -= allocation
+
+    if remaining > 0:
+        fallback_hours = [
+            hour for hour in range(hours) if hour not in RESERVED_PEAK_HOURS
+        ]
+        for hour in fallback_hours:
+            available = hourly_limit - optimized[hour]
+            if available <= 0:
+                continue
+            assigned = min(available, remaining)
+            optimized[hour] += assigned
+            remaining -= assigned
+            if remaining <= 0:
+                break
+
+    solver_status = "heuristic-optimized" if remaining <= 1e-6 else "heuristic-capacity-limited"
+
+    if remaining > 1e-6:
+        spreadable_hours = [hour for hour in range(hours) if hour not in RESERVED_PEAK_HOURS]
+        fallback_share = ev_daily_demand / len(spreadable_hours) if spreadable_hours else 0.0
+        optimized = [
+            0.0 if hour in RESERVED_PEAK_HOURS else fallback_share
+            for hour in range(hours)
+        ]
+        solver_status = "heuristic-fallback"
+
+    return optimized, solver_status
+
+
 def optimize_schedule(zone: dict[str, Any], hours: int = 24) -> dict[str, Any]:
     """
     LP optimizer for EV charging schedule.
@@ -49,59 +101,8 @@ def optimize_schedule(zone: dict[str, Any], hours: int = 24) -> dict[str, Any]:
     grid_cap = float(zone["grid_capacity_kw"])
     base_load = float(zone["daily_demand_kw"]) / hours
 
-    c = np.full(hours + 1, 0.001)
-    c[-1] = 1.0
-    for hour in range(hours):
-        if 6 <= hour <= 9:
-            c[hour] = 0.010
-        elif 18 <= hour <= 22:
-            c[hour] = 0.010
-        elif hour >= 22 or hour <= 6:
-            c[hour] = 0.0001
-        else:
-            c[hour] = 0.003
-
-    A_eq = [np.append(np.ones(hours), 0.0)]
-    b_eq = [ev_daily_demand]
-
     hourly_limit = grid_cap * 0.30
-    A_ub = []
-    b_ub = []
-    for hour in range(hours):
-        hourly_cap_row = np.zeros(hours + 1)
-        hourly_cap_row[hour] = 1.0
-        A_ub.append(hourly_cap_row)
-        b_ub.append(hourly_limit)
-
-        peak_row = np.zeros(hours + 1)
-        peak_row[hour] = 1.0
-        peak_row[-1] = -1.0
-        A_ub.append(peak_row)
-        b_ub.append(0.0)
-
-    for hour in RESERVED_PEAK_HOURS:
-        b_ub[hour * 2] = 0.0
-
-    bounds = [(0.0, hourly_limit) for _ in range(hours)] + [(0.0, None)]
-    for hour in RESERVED_PEAK_HOURS:
-        bounds[hour] = (0.0, 0.0)
-
-    result = linprog(
-        c,
-        A_ub=np.array(A_ub),
-        b_ub=np.array(b_ub),
-        A_eq=A_eq,
-        b_eq=b_eq,
-        bounds=bounds,
-        method="highs",
-    )
-
-    if not result.success or result.x is None:
-        optimized = [ev_daily_demand / hours] * hours
-        solver_status = result.message if hasattr(result, "message") else "fallback"
-    else:
-        optimized = result.x[:hours].tolist()
-        solver_status = result.message if hasattr(result, "message") else "optimized"
+    optimized, solver_status = _build_optimized_schedule(ev_daily_demand, hourly_limit, hours)
 
     unmanaged = _build_unmanaged_schedule(ev_daily_demand, hours)
 
@@ -138,7 +139,7 @@ def optimize_schedule(zone: dict[str, Any], hours: int = 24) -> dict[str, Any]:
 
     return {
         "zone": zone["name"],
-        "method": "scipy.linprog (HiGHS solver)",
+        "method": "Priority-based load shifter",
         "current_peak_slot": _peak_slot(unmanaged),
         "recommended_slot": recommended_slots[0]["label"] if recommended_slots else "22:00 - 23:00",
         "shift_percent": off_peak_shift_pct,
@@ -154,7 +155,7 @@ def optimize_schedule(zone: dict[str, Any], hours: int = 24) -> dict[str, Any]:
         "solver_status": solver_status,
         "ev_daily_demand_kw": round(ev_daily_demand, 2),
         "explanation": (
-            f"LP optimizer shifted {off_peak_shift_pct}% of {zone['name']} EV demand to off-peak hours, "
+            f"Heuristic scheduling shifted {off_peak_shift_pct}% of {zone['name']} EV demand to off-peak hours, "
             f"reducing peak load by {peak_reduction_pct}% while satisfying grid capacity constraint of "
             f"{grid_cap:.0f} kW per feeder."
         ),
@@ -171,10 +172,10 @@ def optimize_all_zones(zones: list[dict[str, Any]]) -> dict[str, Any]:
         "zones": results,
         "summary": {
             "avg_peak_reduction_pct": total_peak_reduction,
-            "method": "scipy LP (HiGHS)",
+            "method": "priority-based load shifter",
             "total_zones_optimized": len(results),
             "explanation": (
-                f"LP optimizer reduced average peak load by {total_peak_reduction}% across {len(results)} zones "
+                f"Heuristic scheduling reduced average peak load by {total_peak_reduction}% across {len(results)} zones "
                 f"by shifting EV charging to off-peak hours."
             ),
         },

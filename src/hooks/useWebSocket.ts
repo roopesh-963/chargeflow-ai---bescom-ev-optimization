@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 
-export function useWebSocket<T = any>(url: string) {
+export function useWebSocket<T = any>(url: string | null) {
   const [data, setData] = useState<T | null>(null);
   const [isConnected, setIsConnected] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -9,6 +9,13 @@ export function useWebSocket<T = any>(url: string) {
   const shouldReconnectRef = useRef(true);
 
   useEffect(() => {
+    if (!url) {
+      setIsConnected(false);
+      setError(null);
+      setData(null);
+      return;
+    }
+
     shouldReconnectRef.current = true;
 
     function connect() {

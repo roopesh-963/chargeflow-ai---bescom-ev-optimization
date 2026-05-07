@@ -67,7 +67,7 @@ def get_schedule_recommendations(zone: Optional[str] = Query(default=None)) -> d
             "unmanaged_load": unmanaged_load,
             "optimized_load": optimized_load,
             "grid_safe_threshold": grid_safe_threshold,
-            "optimizer": "scipy.linprog",
+            "optimizer": "priority-based load shifter",
             "method": summary["method"],
             "solver_status": zone_schedules[0]["solver_status"] if zone_schedules else "no-zones",
             "explanation": summary["explanation"],

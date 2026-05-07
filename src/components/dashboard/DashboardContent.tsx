@@ -2184,7 +2184,7 @@ export function DashboardContent({ activePage }: { activePage: DashboardPageId }
 
       {error ? (
         <ErrorState
-          message={`Backend connection issue: ${error}. Make sure the FastAPI server is running on http://127.0.0.1:8000.`}
+          message={`Backend connection issue: ${error}. Make sure the FastAPI server is running.`}
           onRetry={reload}
         />
       ) : null}

@@ -1,0 +1,10 @@
+backend/
+*.py
+*.pyc
+__pycache__/
+*.pkl
+*.csv
+.venv/
+venv/
+backend/models/
+backend/data/training_data.csv
