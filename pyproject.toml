@@ -1,5 +1,0 @@
-[project]
-name = "chargeflow-ai-bescom-ev-optimization"
-version = "0.1.0"
-description = "ChargeFlow AI deployment metadata for Vercel Python runtime."
-requires-python = ">=3.12,<3.13"
