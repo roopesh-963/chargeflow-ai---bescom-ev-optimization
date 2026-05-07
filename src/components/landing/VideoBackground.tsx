@@ -7,15 +7,22 @@ export default function VideoBackground({ children }: { children: ReactNode }) {
     if (typeof window === 'undefined') return;
 
     const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const smallScreenQuery = window.matchMedia('(max-width: 900px)');
+    const connection = 'connection' in navigator ? (navigator as Navigator & { connection?: { saveData?: boolean } }).connection : undefined;
     const updatePreference = () => {
-      setShowVideo(!mediaQuery.matches);
+      const prefersReducedMotion = mediaQuery.matches;
+      const isSmallScreen = smallScreenQuery.matches;
+      const prefersReducedData = connection?.saveData === true;
+      setShowVideo(!(prefersReducedMotion || isSmallScreen || prefersReducedData));
     };
 
     updatePreference();
     mediaQuery.addEventListener('change', updatePreference);
+    smallScreenQuery.addEventListener('change', updatePreference);
 
     return () => {
       mediaQuery.removeEventListener('change', updatePreference);
+      smallScreenQuery.removeEventListener('change', updatePreference);
     };
   }, []);
 
